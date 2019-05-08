@@ -33,6 +33,25 @@
           and Teacher_Pub_Subject.user_id = #{userId};
     </select>
 
+    <select id="StudentGrade" resultMap="Grade">
+        select Users.user_name,
+               Users.user_id,
+               Subjects.subject_id,
+               subject_name,
+               grade_selfjudge,
+               grade_test,
+               grade_normal,
+               grade_final
+        from Users,
+             Student_select_subject,
+             Teacher_Pub_Subject,
+             Subjects
+        where Student_select_subject.user_id = '201610804101'
+          and Student_select_subject.subject_id = Subjects.subject_id
+          and Teacher_Pub_Subject.subject_id = Subjects.subject_id
+          and Teacher_Pub_Subject.user_id = Users.user_id
+    </select>
+
     <update id="UpdateStudentGrade" parameterType="list">
         <foreach collection="list" item="grade" index="index" separator=";">
             update Student_select_subject

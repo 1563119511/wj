@@ -299,5 +299,33 @@ function TeacherQueryGradeCallback(context) {
         subject_id.setAttribute("type", "hidden");
         cell.appendChild(subject_id);
     }
+}
 
+function StudentGradeCallback(context) {
+    var data = JSON.parse(context);
+    var table = document.getElementById("student-grade-table");
+    var len = table.rows.length;
+    for (var i = 2; i < len; i++) {
+        table.rows[2].remove();
+    }
+    for (var i = 0; i < data.length; i++) {
+        var row = table.insertRow();
+        var cell = row.insertCell(0);
+        cell.innerHTML=data[i].subject_name;
+
+        var cell = row.insertCell(1);
+        cell.innerHTML = data[i].user_name;
+
+        var cell = row.insertCell(2);
+        cell.innerHTML = data[i].grade_normal;
+
+        var cell = row.insertCell(3);
+        cell.innerHTML = data[i].grade_selfjudge;
+
+        var cell = row.insertCell(4);
+        cell.innerHTML = data[i].grade_test;
+
+        var cell = row.insertCell(5);
+        cell.innerHTML = data[i].grade_final;
+    }
 }

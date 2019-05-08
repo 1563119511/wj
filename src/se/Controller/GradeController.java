@@ -7,20 +7,21 @@
 package se.Controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import se.model.Grade;
 import se.model.GradeList;
 import se.model.Mapper.GradeMapper;
 import se.model.User;
 import se.utils.DbUtils;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("Grade")
 public class GradeController {
+
+    // 教师发布成绩
     @RequestMapping(value = "pubGrade", method = RequestMethod.POST)
     public void PubGrade(@ModelAttribute("gradeList") GradeList gradeList) {
         DbUtils<GradeMapper> dbUtils = new DbUtils<>(GradeMapper.class);
@@ -41,5 +42,12 @@ public class GradeController {
             return gradeList;
         }
         return null;
+    }
+
+    @RequestMapping("StudentGrade")
+    @ResponseBody
+    public List<Grade> StudentGrade(@RequestParam String userid, HttpSession session){
+        DbUtils<GradeMapper> dbUtils = new DbUtils<>(GradeMapper.class);
+        return dbUtils.mapper.StudentGrade(userid);
     }
 }

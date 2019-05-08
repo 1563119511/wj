@@ -248,7 +248,6 @@
         if (e.currentTarget.innerText == '查看学生选题') {
             ajax("/Subject/SelectStudentsForTeacher?userId=" +${user.userId}, QueryStudentsForTeacher, "GET");
         }
-
         if (e.currentTarget.innerText == '学生成绩录入') {
             ajax("/Grade/teacherQueryGrade", TeacherQueryGradeCallback, "GET");
         }

@@ -15,6 +15,9 @@ public interface GradeMapper {
     // 查询成绩
     List<Grade> TeacherQueryGrade(String userId);
 
+    // 根据学生ID查询成绩
+    List<Grade> StudentGrade(String userId);
+
     int UpdateStudentGrade(List<Grade> gradeList);
 
     int Grade_selfjudge(@Param(value = "grade") float greade,

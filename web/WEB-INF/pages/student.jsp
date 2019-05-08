@@ -157,6 +157,7 @@
                                 </div>
                             </div>
                         </div>
+                        <%-- 成果上传 --%>
                         <div role="tabpanel" class="tab-pane" id="result"><br/>
                             <div class="panel panel-default">
                                 <!-- Default panel contents -->
@@ -168,8 +169,9 @@
 
                                         <label class="uploadFile" for="upload">
                                             成果上传
-                                        </label>
-                                        <input type="number" name="grade_selfjudge"/>
+                                        </label><br />
+                                        <label>自评成绩：</label>
+                                        <input type="number" min="0" max="100" name="grade_selfjudge"/>
                                         <input type="file" name="file" id='upload'/>
                                         <input class="btn btn-primary" type="submit"/>
                                     </form>
@@ -188,6 +190,7 @@
                                 </table>
                             </div>
                         </div>
+                        <%-- 成绩查看 --%>
                         <div role="tabpanel" class="tab-pane" id="score"><br/>
                             <div class="panel panel-default">
                                 <!-- Default panel contents -->
@@ -197,17 +200,16 @@
                                 </div>
 
                                 <!-- Table -->
-                                <table class="table">
-                                    <tr>
+                                <table id="student-grade-table" class="table table-hover table-bordered" >
+                                    <thead>
                                         <td>课题名称</td>
+                                        <td>指导教师</td>
                                         <td>平时成绩</td>
+                                        <td>自评成绩</td>
+                                        <td>测试成绩</td>
                                         <td>最终成绩</td>
-                                    </tr>
-                                    <tr>
-                                        <td>基于SSH的二维码线上点餐系统</td>
-                                        <td>30</td>
-                                        <td>70</td>
-                                    </tr>
+                                    </thead>
+                                    <tr><tr/>
                                 </table>
                             </div>
                         </div>
@@ -219,14 +221,13 @@
                                 <div class="panel-body">
                                     <p>查看所有的签到。现已签到<span>12</span>次</p>
                                 </div>
-
                                 <!-- Table -->
                                 <table class="table">
-                                    <tr>
+                                    <thead>
                                         <td>#</td>
                                         <td>签到时间</td>
                                         <td>签退时间</td>
-                                    </tr>
+                                    </thead>
                                     <tr>
                                         <td>1</td>
                                         <td>0:0:0</td>
@@ -248,20 +249,18 @@
 
     $('#myTabs a').click(function (e) {
         e.preventDefault();
-        $(this).tab('show')
-
+        $(this).tab('show');
+        if (e.currentTarget.innerText == '成绩管理') {
+            ajax("/Grade/StudentGrade?userid=" +${user.userId}, StudentGradeCallback, "GET");
+        }
     });
 
     function foo(e) {
-
         var liList = tabList.find("li");
-
         for (var i = 0; i < liList.length; i++) {
             liList[i].removeAttribute('class');
         }
-
         e.className = "active";
-
     }
 
     ajax('/User/AllTeacher', QueryTeacherCallback, 'GET');
